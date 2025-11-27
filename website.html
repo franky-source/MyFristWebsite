@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cool Randomizer & 8-Ball</title>
+<style>
+    body {
+        background: #0b0f19;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 40px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        text-shadow: 0 0 10px #4fc3f7;
+    }
+
+    .box {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        margin: 60px auto; /* extra spacing */
+        width: 350px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(79, 195, 247, 0.4);
+        backdrop-filter: blur(6px);
+    }
+
+    input {
+        width: 60px;
+        padding: 5px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 10px;
+        background: #4fc3f7;
+        color: #000;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 0 15px #4fc3f7;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px #81d4fa;
+    }
+
+    #result, #eight-result {
+        margin-top: 15px;
+        font-size: 1.6rem;
+        text-shadow: 0 0 10px #fff;
+    }
+
+    /* Cool Animated 8-Ball */
+    #eight-ball {
+        margin: 20px auto;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, #111 40%, #000 100%);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: float 3s ease-in-out infinite;
+        box-shadow: 0 0 20px #4fc3f7;
+    }
+
+    #eight-ball span {
+        background: #4fc3f7;
+        padding: 20px;
+        border-radius: 50%;
+        font-size: 2rem;
+        color: #000;
+        font-weight: bold;
+        box-shadow: 0 0 10px #4fc3f7;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+    }
+
+    /* 🔥 Glow separator line */
+    .separator {
+        width: 80%;
+        margin: 40px auto;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #4fc3f7, transparent);
+        box-shadow: 0 0 15px #4fc3f7;
+    }
+</style>
+</head>
+<body>
+
+<h1>🔥 Cool Randomizer + Magic 8-Ball 🔮</h1>
+
+<div class="box">
+    <h2>Random Number</h2>
+    <label>From: <input id="min" type="number" value="1"></label>
+    <label>To: <input id="max" type="number" value="100"></label>
+    <br>
+    <button onclick="generate()">Generate</button>
+    <div id="result"></div>
+</div>
+
+<!-- ⭐ NEW glowing separator line -->
+<div class="separator"></div>
+
+<div class="box">
+    <h2>Magic 8-Ball</h2>
+    <div id="eight-ball"><span>8</span></div>
+    <button onclick="eightBall()">Ask</button>
+    <div id="eight-result"></div>
+</div>
+
+<script>
+function generate() {
+    const min = parseInt(document.getElementById("min").value);
+    const max = parseInt(document.getElementById("max").value);
+    const random = Math.floor(Math.random() * (max - min + 1)) + min;
+    document.getElementById("result").textContent = "🎲 " + random;
+}
+
+function eightBall() {
+  const answers = [
+    "Yes!",
+    "Definitely.",
+    "Maybe…",
+    "Try again.",
+    "Nope!",
+    "Not likely.",
+    "Absolutely!",
+    "It's unclear.",
+    "Looks good.",
+    "Doubtful."
+  ];
+
+  const randomIndex = Math.floor(Math.random() * answers.length);
+  document.getElementById("eight-result").textContent = "🔮 " + answers[randomIndex];
+
+  // Shake animation effect
+  const ball = document.getElementById("eight-ball");
+  ball.style.animation = "shake 0.4s";
+
+  setTimeout(() => {
+      ball.style.animation = "float 3s ease-in-out infinite";
+  }, 400);
+}
+
+// Add shake animation
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
